@@ -2,7 +2,10 @@ import styles from './BarCreateTask.module.css';
 import { PlusCircle } from 'phosphor-react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+import { v4 as uuidv4 } from 'uuid';
+
 interface Task {
+  id: string;
   content: string;
   done: boolean;
 }
@@ -18,12 +21,12 @@ export function BarAddTask({ onAddNewTask }: BarAddTaskProps) {
   function handleAddNewTask(event: FormEvent) {
     event.preventDefault();
   
-    onAddNewTask(newTask);
+    onAddNewTask({...newTask, id: uuidv4()});
     setNewTask({content: '', done: false} as Task);
   }
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewTask({ content: event.target.value, done: false });
+    setNewTask({ id: '', content: event.target.value, done: false });
   }
 
   return (

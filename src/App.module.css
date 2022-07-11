@@ -12,12 +12,25 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 4rem;
+  margin-bottom: 1.5rem;
 }
 
-.taskList {
-  width: 100%;
-  margin-top: 1.5rem;
-  border-bottom: 1px solid var(--gray-400);
+.emptyTaskList {
+  border-top: 1px solid var(--gray-400);
+
+  text-align: center;
+  color: var(--gray-300);
+}
+
+.emptyTaskList p {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.emptyTaskList img {
+  margin-top: 4rem;
+  height: 3.5rem;
+  width: 3.5rem;
 }
 
 @media (max-width: 768px) {

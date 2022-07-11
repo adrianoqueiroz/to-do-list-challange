@@ -8,36 +8,27 @@ import { TaskInfo } from "./components/TaskInfo";
 import { Task } from "./components/Task";
 import { useState } from "react";
 
+import Clipboard from './assets/Clipboard.svg';
+
 interface Task {
+  id: string;
   content: string;
   done: boolean;
 }
 
 function App() {
 
-  const [tasks, setTasks] = useState([
-    // { content: "Fazer o curso de React", done: false } as Task,
-    // { content: "Fazer o curso de TypeScript", done: false } as Task,
-    // { content: "Criar layout do app", done: true } as Task,
-    // { content: "Incluir elementos na tela", done: true } as Task,
-    // { content: "Criar CSS", done: true } as Task,
-    { content: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.", done: true } as Task,
-    { content: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.", done: true } as Task,
-    { content: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.", done: true } as Task,
-    { content: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.", done: true } as Task,
-    { content: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.", done: true } as Task,
-    { content: "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.", done: true } as Task,
-  ]);
+  const [tasks, setTasks] = useState([] as Task[]);
 
   const [newTask, setNewTask] = useState({} as Task);
 
   function deleteTask(taskToDelete: Task) {
-    setTasks(tasks.filter(task => task.content !== taskToDelete.content));
+    setTasks(tasks.filter(task => task.id !== taskToDelete.id));
   }
 
   function changeStatusTask(taskToChange: Task) {
     setTasks(tasks.map(task => {
-      if (task.content === taskToChange.content) {
+      if (task.id === taskToChange.id) {
         return { ...task, done: !task.done };
       }
       return task;
@@ -64,18 +55,25 @@ function App() {
             <TaskInfo title="Concluídas" done={totalDoneTasks()} created={tasks.length} />
           </header>
 
-          <div className={styles.taskList}>
+          <div>
             {tasks.length > 0 
               ? tasks.map(task => (
                 <Task 
-                  key={task.content} 
+                  key={task.id} 
+                  id={task.id}
                   content={task.content} 
                   done={task.done}
                   onDeleteTask={deleteTask}
                   onChangeStatusTask={changeStatusTask}
                 />
               ))
-              : <p>Nenhuma tarefa criada</p>
+              : 
+              <div className={styles.emptyTaskList}>
+                <img src={Clipboard} alt="Clipboard Icon" />
+                <p>Você ainda não tem tarefas cadastradas</p>
+                <span>Crie tarefas e organize seus itens a fazer</span>
+              </div>
+              
             }
           </div>
 

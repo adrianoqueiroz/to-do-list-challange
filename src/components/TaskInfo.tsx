@@ -12,7 +12,7 @@ export function TaskInfo({title, created, done}:TaskInfoProps) {
       <p className={done == null ? styles.lightTitle : styles.darkTitle }>
         {title}
       </p>
-      <span>{done != null ? done + ' de ' : '' }{created}</span>
+      <span>{done != null && created > 0 ? done + ' de ' : '' }{created}</span>
     </div>
   )
 }
